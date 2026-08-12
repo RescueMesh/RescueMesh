@@ -12,9 +12,22 @@
 
 > **Current status — security-first prototype, regtest only.** RescueMesh does not broadcast to mainnet, connect to Bitcoin Core, construct production blocks, operate a public mining service or promise confirmation. The repository implements and tests the coordination primitives described below; the production mining path is a roadmap, not a deployed service.
 
+## What it can do today
+
+- Simulate whether accepting a transaction would be economically worthwhile for a miner.
+- Analyze synthetic regtest transactions and calculate size, weight, txid and wtxid.
+- Encrypt transactions locally without publishing them.
+- Create verifiable commitments that conceal individual txids.
+- Test signed announcements between coordinators.
+- Simulate Stratum jobs and verify shares.
+- Generate Proof-of-Help receipts.
+- Test the architecture, security controls and cooperative economic model.
+- Provide a public website that explains the project and helps attract users, reviewers and contributors.
+
 ## Contents
 
 - [The problem](#the-problem)
+- [What it can do today](#what-it-can-do-today)
 - [What RescueMesh is](#what-rescuemesh-is)
 - [What RescueMesh is not](#what-rescuemesh-is-not)
 - [Why participation can benefit everyone](#why-participation-can-benefit-everyone)
