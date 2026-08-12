@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/rescuemesh-avatar.png" alt="RescueMesh network shield" width="160">
+</p>
+
 # RescueMesh
 
 RescueMesh is an experimental, free and non-custodial coordination protocol for miners who voluntarily build privacy-preserving Bitcoin block templates containing consensus-valid rescue transactions.
