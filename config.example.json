@@ -1,0 +1,35 @@
+{
+  "network": "regtest",
+  "api": {
+    "host": "127.0.0.1",
+    "port": 39393,
+    "maxBodyBytes": 32768,
+    "requestsPerMinute": 120
+  },
+  "mainnet": {
+    "enabled": false,
+    "submissionEnabled": false
+  },
+  "discovery": {
+    "enabled": false,
+    "automaticAnnounce": false,
+    "minimumPowBits": 16,
+    "maximumTtlSeconds": 1800,
+    "endpoint": "http://127.0.0.1:39393",
+    "seeds": []
+  },
+  "economics": {
+    "minimumNetGainSats": 0,
+    "maximumRescueVsize": 100000,
+    "maximumFreeJobsPerTemplate": 1
+  },
+  "security": {
+    "runtimeDirectory": "runtime",
+    "masterKeyFile": "runtime/secrets/master.key",
+    "signingPrivateKeyFile": "runtime/secrets/signing-private.pem",
+    "signingPublicKeyFile": "runtime/secrets/signing-public.pem",
+    "apiTokenFile": "runtime/secrets/api.token",
+    "allowRemoteApi": false,
+    "allowRawTransactionHttp": false
+  }
+}

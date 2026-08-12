@@ -1,0 +1,30 @@
+{
+  "name": "rescuemesh",
+  "version": "0.1.0",
+  "description": "Free, non-custodial and privacy-preserving rescue coordination for consensus-valid Bitcoin transactions.",
+  "type": "module",
+  "private": false,
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "start": "node src/cli.mjs serve",
+    "doctor": "node src/cli.mjs doctor",
+    "init": "node src/cli.mjs init",
+    "simulate": "node src/cli.mjs simulate",
+    "idea-lab": "node scripts/idea-lab.mjs",
+    "lint": "node scripts/lint.mjs",
+    "security:scan": "node scripts/scan-secrets.mjs",
+    "test": "node --test",
+    "check": "npm run lint && npm run security:scan && npm test"
+  },
+  "keywords": [
+    "bitcoin",
+    "mining",
+    "stratum-v2",
+    "datum",
+    "non-custodial",
+    "transaction-rescue"
+  ],
+  "license": "AGPL-3.0-only"
+}

@@ -1,0 +1,51 @@
+# Dependencies and test output
+node_modules/
+coverage/
+.nyc_output/
+
+# RescueMesh runtime: always local and never publishable
+runtime/
+secrets/
+config.local.json
+.env
+.env.*
+!.env.example
+
+# Bitcoin, wallet, Tor and transaction material
+*.dat
+*.wallet
+wallet.dat
+*.rawtx
+*.block
+*.block.hex
+*.psbt
+*.key
+*.share
+*.pem
+*.onion
+hs_ed25519_*
+hostname
+bitcoin-data/
+chainstate/
+blocks/
+indexes/
+regtest/
+testnet*/
+signet/
+
+# Operational state
+*.log
+*.pid
+*.lock
+*.tmp
+*.bak
+estado/
+snapshots/
+respaldos/
+slipstream/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

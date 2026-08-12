@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>RescueMesh — Panel local</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">COOPERATIVA LOCAL · PROTOTIPO</p>
+        <h1>RescueMesh</h1>
+        <p class="lead">Coordinación gratuita de plantillas de rescate, sin custodia y con seguridad cerrada por defecto.</p>
+      </div>
+      <span id="health-pill" class="pill pending">Comprobando…</span>
+    </header>
+
+    <section class="security" aria-labelledby="security-title">
+      <div class="shield" aria-hidden="true">◇</div>
+      <div>
+        <h2 id="security-title">Los datos sensibles no entran aquí</h2>
+        <p>Este panel no acepta raws, claves, outpoints ni credenciales. El sellado se realiza únicamente de forma local.</p>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="Estado del servicio">
+      <article><span>Red</span><strong id="network">—</strong></article>
+      <article><span>Mainnet</span><strong id="mainnet">—</strong></article>
+      <article><span>Nodos descubiertos</span><strong id="nodes">—</strong></article>
+      <article><span>Trabajos públicos</span><strong id="jobs">—</strong></article>
+    </section>
+
+    <section class="panel" aria-labelledby="sim-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">SIMULADOR ECONÓMICO</p>
+          <h2 id="sim-title">¿Perdería dinero el minero?</h2>
+        </div>
+        <p>Todos los cálculos se realizan con enteros; nunca se envían fondos.</p>
+      </div>
+      <form id="simulator">
+        <label>Tamaño virtual <span>vB</span><input name="rescueVsize" type="number" min="1" max="1000000" value="12318" required></label>
+        <label>Comisión existente <span>sats</span><input name="rescueFeeSats" type="number" min="0" value="12318" required></label>
+        <label>Espacio libre <span>vB</span><input name="freeSpaceVbytes" type="number" min="0" value="12318" required></label>
+        <label>Precio marginal <span>sat/vB</span><input name="marginalRate" type="number" min="0" step="0.001" value="1" required></label>
+        <label>Ingresos auxiliares <span>sats</span><input name="auxiliaryRevenueSats" type="number" min="0" value="0" required></label>
+        <label>Ahorro de infraestructura <span>sats</span><input name="infrastructureSavingsSats" type="number" min="0" value="0" required></label>
+        <button type="submit">Evaluar plantilla</button>
+      </form>
+      <div id="result" class="result hidden" aria-live="polite"></div>
+    </section>
+
+    <footer>Regtest primero · sin difusión automática · sin comisión RescueMesh</footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+name: Protocol RFC
+description: Propose a reviewed protocol or economic change.
+title: "[RFC]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and measurable goal
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Proposed design
+    validations:
+      required: true
+  - type: textarea
+    id: threats
+    attributes:
+      label: New threats and failure modes
+    validations:
+      required: true
+  - type: textarea
+    id: economics
+    attributes:
+      label: Economic impact by participant
+    validations:
+      required: true
+  - type: checkboxes
+    id: automation
+    attributes:
+      label: Automation boundary
+      options:
+        - label: This proposal will not auto-deploy or weaken mainnet interlocks.
+          required: true

@@ -1,0 +1,29 @@
+name: Innovation review
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 1,15 * *'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Generate untrusted proposal report
+        run: node scripts/idea-lab.mjs > "$RUNNER_TEMP/rescuemesh-ideas.md"
+      - name: Open one review issue if none is pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          existing="$(gh issue list --state open --search 'RescueMesh automated innovation review in:title' --json number --jq 'length')"
+          if [ "$existing" = "0" ]; then
+            gh issue create --title "RescueMesh automated innovation review" --body-file "$RUNNER_TEMP/rescuemesh-ideas.md"
+          fi

@@ -1,0 +1,60 @@
+{
+  "criteria": {
+    "ownerProtection": 5,
+    "minerValue": 5,
+    "decentralization": 4,
+    "feasibility": 3,
+    "securityRisk": -5
+  },
+  "blocks": [
+    {
+      "id": "sealed-jobs",
+      "name": "sealed jobs",
+      "benefits": ["ownerProtection", "decentralization"],
+      "risks": ["hiddenValidity"]
+    },
+    {
+      "id": "proof-carrying-template",
+      "name": "proof-carrying templates",
+      "benefits": ["ownerProtection", "decentralization"],
+      "risks": ["researchComplexity"],
+      "resolves": ["hiddenValidity"]
+    },
+    {
+      "id": "marginal-scheduler",
+      "name": "marginal blockspace scheduler",
+      "benefits": ["minerValue", "feasibility"],
+      "risks": []
+    },
+    {
+      "id": "proof-of-help",
+      "name": "reciprocal Proof-of-Help insurance",
+      "benefits": ["minerValue", "decentralization"],
+      "risks": ["sybilPolicy"]
+    },
+    {
+      "id": "ephemeral-gossip",
+      "name": "ephemeral signed gossip",
+      "benefits": ["decentralization", "ownerProtection"],
+      "risks": ["eclipseAttack"]
+    },
+    {
+      "id": "merge-mining",
+      "name": "verified auxiliary merge-mining yield",
+      "benefits": ["minerValue"],
+      "risks": ["externalDependency"]
+    },
+    {
+      "id": "direct-coinbase-payouts",
+      "name": "direct non-custodial coinbase payouts",
+      "benefits": ["minerValue", "decentralization"],
+      "risks": ["payoutComplexity"]
+    },
+    {
+      "id": "threshold-coordinators",
+      "name": "threshold sealed coordinators",
+      "benefits": ["ownerProtection", "decentralization"],
+      "risks": ["researchComplexity"]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+name: Upstream review
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 8 * * 1'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Inspect official upstream releases
+        run: node scripts/upstream-watch.mjs > "$RUNNER_TEMP/upstreams.md"
+      - name: Open one review issue if none is pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          existing="$(gh issue list --state open --search 'RescueMesh upstream security review in:title' --json number --jq 'length')"
+          if [ "$existing" = "0" ]; then
+            gh issue create --title "RescueMesh upstream security review" --body-file "$RUNNER_TEMP/upstreams.md"
+          fi
