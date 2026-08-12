@@ -58,8 +58,8 @@ test('Spanish and English pages are separate, local and hardened', async (t) => 
   assert.equal(english.headers.get('content-language'), 'en');
   assert.match(spanishBody, /Coordinar el rescate/);
   assert.match(englishBody, /Coordinate the rescue/);
-  assert.match(spanishBody, /href="\/en"/);
-  assert.match(englishBody, /href="\/"/);
+  assert.match(spanishBody, /href="\.\/en\/"/);
+  assert.match(englishBody, /href="\.\.\/"/);
 
   for (const response of [spanish, english]) {
     const csp = response.headers.get('content-security-policy');
@@ -82,7 +82,10 @@ test('web files contain no inline executable code or third-party resources', asy
   for (const page of [spanish, english]) {
     assert.doesNotMatch(page, /<script(?![^>]*\bsrc=)/i);
     assert.doesNotMatch(page, /\son[a-z]+\s*=/i);
-    assert.doesNotMatch(page, /https?:\/\//i);
+    assert.doesNotMatch(page, /<script[^>]+src=["']https?:\/\//i);
+    assert.doesNotMatch(page, /<link[^>]+rel=["'](?:stylesheet|icon)["'][^>]+href=["']https?:\/\//i);
+    assert.doesNotMatch(page, /<img[^>]+src=["']https?:\/\//i);
+    assert.match(page, /http-equiv="Content-Security-Policy"/i);
   }
   assert.doesNotMatch(script, /\b(?:eval|Function)\s*\(/);
   assert.doesNotMatch(script, /\.innerHTML\s*=/);

@@ -9,7 +9,6 @@ import { rejectSensitiveKeys } from '../lib/validation.mjs';
 const WEB_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../web');
 const STATIC_FILES = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
-  ['/en', ['en.html', 'text/html; charset=utf-8']],
   ['/en/', ['en.html', 'text/html; charset=utf-8']],
   ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
   ['/styles.css', ['styles.css', 'text/css; charset=utf-8']],
@@ -147,6 +146,11 @@ export function createApiServer({ config, registry, jobs, apiToken, version = '0
         return;
       }
       const url = new URL(request.url, 'http://localhost');
+      if (request.method === 'GET' && url.pathname === '/en') {
+        response.writeHead(308, { ...securityHeaders('text/plain; charset=utf-8'), location: '/en/' });
+        response.end('Redirecting to /en/\n');
+        return;
+      }
       if (request.method === 'GET' && STATIC_FILES.has(url.pathname)) {
         const [fileName, contentType] = STATIC_FILES.get(url.pathname);
         const body = await fs.readFile(path.join(WEB_ROOT, fileName));

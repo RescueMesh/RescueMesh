@@ -7,23 +7,24 @@
   <meta name="theme-color" content="#080a0d">
   <meta name="color-scheme" content="dark">
   <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RescueMesh — verifiable, non-custodial coordination">
   <meta property="og:description" content="Open infrastructure for coordinating Bitcoin templates without publishing sensitive data or becoming a custodian.">
-  <meta property="og:image" content="/og-en.png">
+  <meta property="og:image" content="https://rescuemesh.github.io/RescueMesh/og-en.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="alternate" hreflang="es" href="/">
-  <link rel="alternate" hreflang="en" href="/en">
+  <link rel="alternate" hreflang="es" href="https://rescuemesh.github.io/RescueMesh/">
+  <link rel="alternate" hreflang="en" href="https://rescuemesh.github.io/RescueMesh/en/">
   <title>RescueMesh — verifiable, non-custodial coordination</title>
-  <link rel="icon" href="/brand.png" type="image/png">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="../brand.png" type="image/png">
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="RescueMesh, home">
-      <img src="/brand.png" width="42" height="42" alt="">
+      <img src="../brand.png" width="42" height="42" alt="">
       <span>
         <strong>RescueMesh</strong>
         <small>Protocol research</small>
@@ -33,10 +34,11 @@
       <a href="#protocol">Protocol</a>
       <a href="#security">Security</a>
       <a href="#simulator">Simulator</a>
+      <a href="#install">Install</a>
     </nav>
     <div class="header-tools">
       <div class="language-switcher" aria-label="Language">
-        <a href="/" lang="es" hreflang="es">ES</a>
+        <a href="../" lang="es" hreflang="es">ES</a>
         <span aria-current="page">EN</span>
       </div>
       <div id="health-pill" class="health-pill pending" role="status" aria-live="polite">
@@ -281,17 +283,38 @@
         <span>Rushed activation</span>
       </div>
     </section>
+
+    <section class="install-section" id="install" aria-labelledby="install-title">
+      <div class="install-intro">
+        <p class="kicker"><span>07</span> Your own instance</p>
+        <h2 id="install-title">The website is public.<br>Control stays local.</h2>
+        <p>Every operator runs an independent instance on their own machine. Installation needs no RescueMesh account, opens no public ports, and connects no wallet.</p>
+        <a class="button secondary" href="https://github.com/RescueMesh/RescueMesh">View the source code</a>
+      </div>
+      <div class="install-terminal" aria-label="Installation steps">
+        <div class="terminal-header"><span>Secure installation</span><span>Node.js 20.11+</span></div>
+        <ol>
+          <li><span>01</span><div><strong>Download</strong><code>git clone https://github.com/RescueMesh/RescueMesh.git</code></div></li>
+          <li><span>02</span><div><strong>Enter</strong><code>cd RescueMesh</code></div></li>
+          <li><span>03</span><div><strong>Verify</strong><code>npm run check</code></div></li>
+          <li><span>04</span><div><strong>Create local secrets</strong><code>npm run init</code></div></li>
+          <li><span>05</span><div><strong>Diagnose</strong><code>npm run doctor</code></div></li>
+          <li><span>06</span><div><strong>Run</strong><code>npm start</code></div></li>
+        </ol>
+        <p>Then open: <code>http://127.0.0.1:39393/en</code></p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-brand">
-      <img src="/brand.png" width="36" height="36" alt="">
+      <img src="../brand.png" width="36" height="36" alt="">
       <div><strong>RescueMesh</strong><span>Open research · AGPL-3.0</span></div>
     </div>
     <p>Regtest first · no automatic broadcast · no RescueMesh fee</p>
     <a href="#top">Back to top ↑</a>
   </footer>
 
-  <script src="/app.js" defer></script>
+  <script src="../app.js" defer></script>
 </body>
 </html>

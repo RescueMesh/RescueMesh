@@ -13,6 +13,7 @@
     "init": "node src/cli.mjs init",
     "simulate": "node src/cli.mjs simulate",
     "idea-lab": "node scripts/idea-lab.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
     "lint": "node scripts/lint.mjs",
     "security:scan": "node scripts/scan-secrets.mjs",
     "test": "node --test",

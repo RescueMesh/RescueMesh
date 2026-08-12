@@ -922,6 +922,92 @@ h1 em {
   padding: 118px 0;
 }
 
+.install-section {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(580px, 1.2fr);
+  gap: clamp(60px, 9vw, 145px);
+  padding: 118px 0;
+  border-top: 1px solid var(--line);
+}
+
+.install-intro h2 {
+  margin-bottom: 26px;
+  font-size: clamp(2.45rem, 4.4vw, 4.9rem);
+  font-weight: 530;
+  letter-spacing: -.055em;
+  line-height: .98;
+}
+
+.install-intro > p:not(.kicker) {
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: .96rem;
+  line-height: 1.75;
+}
+
+.install-terminal {
+  align-self: start;
+  border: 1px solid var(--line-strong);
+  background: var(--ink-soft);
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 21px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font: .64rem/1 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.install-terminal ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.install-terminal li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 18px 21px;
+  border-bottom: 1px solid var(--line);
+}
+
+.install-terminal li > span {
+  padding-top: 3px;
+  color: var(--signal-soft);
+  font: .63rem/1 var(--mono);
+}
+
+.install-terminal li div {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+}
+
+.install-terminal strong {
+  font-size: .75rem;
+}
+
+.install-terminal code {
+  overflow-x: auto;
+  color: var(--cyan);
+  font: .67rem/1.55 var(--mono);
+  white-space: nowrap;
+}
+
+.install-terminal > p {
+  margin: 0;
+  padding: 18px 21px;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
 .principles h2 {
   margin: 0;
 }
@@ -1029,7 +1115,8 @@ h1 em {
 
   .simulator-section,
   .security-layout,
-  .principles {
+  .principles,
+  .install-section {
     grid-template-columns: 1fr;
   }
 

@@ -1,5 +1,7 @@
 # RescueMesh en español
 
+[Web pública](https://rescuemesh.github.io/RescueMesh/) · [Guía completa de instalación](INSTALL.es.md)
+
 RescueMesh es un proyecto experimental para coordinar gratuitamente a propietarios de transacciones y mineros que construyen sus propias plantillas.
 
 No roba comisiones del premio, no custodia bitcoins y no obliga a ningún minero. Busca que el minero acepte únicamente cuando la plantilla no empeora su resultado económico. El software tampoco puede crear hashrate ni garantizar cuándo aparecerá un bloque.

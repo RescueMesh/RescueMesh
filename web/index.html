@@ -7,23 +7,24 @@
   <meta name="theme-color" content="#080a0d">
   <meta name="color-scheme" content="dark">
   <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RescueMesh — coordinación verificable, sin custodia">
   <meta property="og:description" content="Infraestructura abierta para coordinar plantillas Bitcoin sin publicar datos sensibles ni convertirse en custodio.">
-  <meta property="og:image" content="/og.png">
+  <meta property="og:image" content="https://rescuemesh.github.io/RescueMesh/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="alternate" hreflang="es" href="/">
-  <link rel="alternate" hreflang="en" href="/en">
+  <link rel="alternate" hreflang="es" href="https://rescuemesh.github.io/RescueMesh/">
+  <link rel="alternate" hreflang="en" href="https://rescuemesh.github.io/RescueMesh/en/">
   <title>RescueMesh — coordinación verificable, sin custodia</title>
-  <link rel="icon" href="/brand.png" type="image/png">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="./brand.png" type="image/png">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="RescueMesh, inicio">
-      <img src="/brand.png" width="42" height="42" alt="">
+      <img src="./brand.png" width="42" height="42" alt="">
       <span>
         <strong>RescueMesh</strong>
         <small>Protocol research</small>
@@ -33,11 +34,12 @@
       <a href="#protocol">Protocolo</a>
       <a href="#security">Seguridad</a>
       <a href="#simulator">Simulador</a>
+      <a href="#install">Instalar</a>
     </nav>
     <div class="header-tools">
       <div class="language-switcher" aria-label="Idioma">
         <span aria-current="page">ES</span>
-        <a href="/en" lang="en" hreflang="en">EN</a>
+        <a href="./en/" lang="en" hreflang="en">EN</a>
       </div>
       <div id="health-pill" class="health-pill pending" role="status" aria-live="polite">
         <span class="status-dot" aria-hidden="true"></span>
@@ -281,17 +283,38 @@
         <span>Activación apresurada</span>
       </div>
     </section>
+
+    <section class="install-section" id="install" aria-labelledby="install-title">
+      <div class="install-intro">
+        <p class="kicker"><span>07</span> Instancia propia</p>
+        <h2 id="install-title">La web es pública.<br>El control permanece local.</h2>
+        <p>Cada operador ejecuta su propia instancia en su equipo. La instalación no necesita una cuenta de RescueMesh, no abre puertos públicos y no conecta una cartera.</p>
+        <a class="button secondary" href="https://github.com/RescueMesh/RescueMesh">Ver el código fuente</a>
+      </div>
+      <div class="install-terminal" aria-label="Pasos de instalación">
+        <div class="terminal-header"><span>Instalación segura</span><span>Node.js 20.11+</span></div>
+        <ol>
+          <li><span>01</span><div><strong>Descargar</strong><code>git clone https://github.com/RescueMesh/RescueMesh.git</code></div></li>
+          <li><span>02</span><div><strong>Entrar</strong><code>cd RescueMesh</code></div></li>
+          <li><span>03</span><div><strong>Verificar</strong><code>npm run check</code></div></li>
+          <li><span>04</span><div><strong>Crear secretos locales</strong><code>npm run init</code></div></li>
+          <li><span>05</span><div><strong>Diagnosticar</strong><code>npm run doctor</code></div></li>
+          <li><span>06</span><div><strong>Ejecutar</strong><code>npm start</code></div></li>
+        </ol>
+        <p>Después: <code>http://127.0.0.1:39393</code></p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-brand">
-      <img src="/brand.png" width="36" height="36" alt="">
+      <img src="./brand.png" width="36" height="36" alt="">
       <div><strong>RescueMesh</strong><span>Investigación abierta · AGPL-3.0</span></div>
     </div>
     <p>Regtest primero · sin difusión automática · sin comisión RescueMesh</p>
     <a href="#top">Volver arriba ↑</a>
   </footer>
 
-  <script src="/app.js" defer></script>
+  <script src="./app.js" defer></script>
 </body>
 </html>

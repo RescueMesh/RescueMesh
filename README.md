@@ -10,7 +10,7 @@ It is **not** a transaction accelerator, wallet, mining pool, or promise of conf
 
 > Status: security-first prototype. Regtest only. Mainnet submission is not implemented and is locked by multiple independent safeguards.
 
-[Documentación en español](docs/README.es.md) · [Architecture](docs/ARCHITECTURE.md) · [Threat model](docs/THREAT_MODEL.md) · [Economics](docs/ECONOMICS.md) · [Protocol](docs/PROTOCOL.md)
+[Public website](https://rescuemesh.github.io/RescueMesh/en/) · [Instalación en español](docs/INSTALL.es.md) · [Installation](docs/INSTALL.md) · [Architecture](docs/ARCHITECTURE.md) · [Threat model](docs/THREAT_MODEL.md) · [Protocol](docs/PROTOCOL.md)
 
 ## Why miners may benefit
 
@@ -52,6 +52,8 @@ printf '%s' "$RAW_TX" | node src/cli.mjs seal --id example-regtest
 ```
 
 Do not use real transaction material until the threat model and mainnet checklist have been independently reviewed.
+
+See the complete [installation guide](docs/INSTALL.md) or the [Spanish installation guide](docs/INSTALL.es.md). The public GitHub Pages deployment contains only the allowlisted static files under `web/`; local configuration, runtime secrets, source modules, and operational files are excluded from its artifact.
 
 ## Repository boundaries
 
