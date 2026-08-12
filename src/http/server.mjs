@@ -9,26 +9,46 @@ import { rejectSensitiveKeys } from '../lib/validation.mjs';
 const WEB_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../web');
 const STATIC_FILES = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
+  ['/en', ['en.html', 'text/html; charset=utf-8']],
+  ['/en/', ['en.html', 'text/html; charset=utf-8']],
   ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
   ['/styles.css', ['styles.css', 'text/css; charset=utf-8']],
+  ['/brand.png', ['brand.png', 'image/png']],
+  ['/og.png', ['og.png', 'image/png']],
+  ['/og-en.png', ['og-en.png', 'image/png']],
 ]);
+const KNOWN_PATHS = new Set([
+  ...STATIC_FILES.keys(),
+  '/health',
+  '/v1/capabilities',
+  '/v1/announcements',
+  '/v1/jobs',
+  '/v1/simulate',
+]);
+const LOOPBACK_HOSTS = new Set(['127.0.0.1', 'localhost', '[::1]']);
 
 function securityHeaders(contentType = 'application/json; charset=utf-8') {
   return {
     'content-type': contentType,
     'cache-control': 'no-store',
-    'content-security-policy': "default-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+    'content-security-policy': "default-src 'none'; connect-src 'self'; font-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'",
     'referrer-policy': 'no-referrer',
     'x-content-type-options': 'nosniff',
     'x-frame-options': 'DENY',
-    'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+    'x-permitted-cross-domain-policies': 'none',
+    'x-xss-protection': '0',
+    'permissions-policy': 'accelerometer=(), ambient-light-sensor=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()',
+    'cross-origin-opener-policy': 'same-origin',
+    'cross-origin-embedder-policy': 'require-corp',
     'cross-origin-resource-policy': 'same-origin',
+    'origin-agent-cluster': '?1',
   };
 }
 
 function writeJson(response, status, payload) {
+  const body = `${JSON.stringify(payload)}\n`;
   response.writeHead(status, securityHeaders());
-  response.end(`${JSON.stringify(payload)}\n`);
+  response.end(body);
 }
 
 async function readJson(request, maximumBytes) {
@@ -58,6 +78,48 @@ function requireWriteToken(request, token) {
   if (!safeTokenMatch(provided, token)) throw Object.assign(new Error('Write authorization required'), { statusCode: 401 });
 }
 
+function requestHostname(request) {
+  const host = String(request.headers.host || '');
+  try { return new URL(`http://${host}`).hostname.toLowerCase(); }
+  catch { return ''; }
+}
+
+function enforceBrowserBoundary(request) {
+  if (!LOOPBACK_HOSTS.has(requestHostname(request))) {
+    throw Object.assign(new Error('Untrusted Host header'), { statusCode: 421, errorCode: 'UNTRUSTED_HOST' });
+  }
+  const fetchSite = String(request.headers['sec-fetch-site'] || '').toLowerCase();
+  if (fetchSite === 'cross-site') {
+    throw Object.assign(new Error('Cross-site browser request blocked'), { statusCode: 403, errorCode: 'CROSS_SITE_BLOCKED' });
+  }
+  if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method)) return;
+  const origin = String(request.headers.origin || '');
+  if (!origin) return;
+  try {
+    const parsed = new URL(origin);
+    if (parsed.protocol !== 'http:' || parsed.host !== request.headers.host) throw new Error('mismatch');
+  } catch {
+    throw Object.assign(new Error('Cross-origin mutation blocked'), { statusCode: 403, errorCode: 'CROSS_ORIGIN_BLOCKED' });
+  }
+}
+
+function publicError(error) {
+  const status = Number.isInteger(error.statusCode) ? error.statusCode : error instanceof TypeError ? 400 : 500;
+  const defaults = {
+    400: ['REQUEST_REJECTED', 'La solicitud no cumple el formato permitido.'],
+    401: ['AUTHORIZATION_REQUIRED', 'Se requiere autorización para esta operación.'],
+    403: ['REQUEST_BLOCKED', 'La solicitud ha sido bloqueada por la política de seguridad.'],
+    405: ['METHOD_NOT_ALLOWED', 'El método HTTP no está permitido para este recurso.'],
+    413: ['BODY_TOO_LARGE', 'El cuerpo de la solicitud supera el límite permitido.'],
+    415: ['UNSUPPORTED_MEDIA_TYPE', 'El cuerpo debe usar application/json.'],
+    421: ['UNTRUSTED_HOST', 'El encabezado Host no pertenece a la interfaz local.'],
+    429: ['RATE_LIMITED', 'Se ha alcanzado el límite temporal de solicitudes.'],
+    500: ['INTERNAL_ERROR', 'El servicio no pudo completar la solicitud.'],
+  };
+  const [defaultCode, message] = defaults[status] || defaults[500];
+  return { status, payload: { error: error.errorCode || defaultCode, message } };
+}
+
 function createRateLimiter(maximumPerMinute) {
   const clients = new Map();
   return (address, now = Date.now()) => {
@@ -79,6 +141,7 @@ export function createApiServer({ config, registry, jobs, apiToken, version = '0
 
   return http.createServer(async (request, response) => {
     try {
+      enforceBrowserBoundary(request);
       if (!allowRequest(request.socket.remoteAddress)) {
         writeJson(response, 429, { error: 'RATE_LIMITED' });
         return;
@@ -87,7 +150,10 @@ export function createApiServer({ config, registry, jobs, apiToken, version = '0
       if (request.method === 'GET' && STATIC_FILES.has(url.pathname)) {
         const [fileName, contentType] = STATIC_FILES.get(url.pathname);
         const body = await fs.readFile(path.join(WEB_ROOT, fileName));
-        response.writeHead(200, securityHeaders(contentType));
+        const headers = securityHeaders(contentType);
+        if (fileName === 'index.html') headers['content-language'] = 'es';
+        if (fileName === 'en.html') headers['content-language'] = 'en';
+        response.writeHead(200, headers);
         response.end(body);
         return;
       }
@@ -140,10 +206,15 @@ export function createApiServer({ config, registry, jobs, apiToken, version = '0
         writeJson(response, 200, { evaluation: evaluateRescueCandidate(body) });
         return;
       }
+      if (KNOWN_PATHS.has(url.pathname)) {
+        response.setHeader('allow', url.pathname === '/v1/announcements' || url.pathname === '/v1/jobs' ? 'GET, POST' : url.pathname === '/v1/simulate' ? 'POST' : 'GET');
+        writeJson(response, 405, { error: 'METHOD_NOT_ALLOWED', message: 'El método HTTP no está permitido para este recurso.' });
+        return;
+      }
       writeJson(response, 404, { error: 'NOT_FOUND' });
     } catch (error) {
-      const status = Number.isInteger(error.statusCode) ? error.statusCode : 400;
-      writeJson(response, status, { error: status >= 500 ? 'INTERNAL_ERROR' : 'REQUEST_REJECTED', message: error.message });
+      const { status, payload } = publicError(error);
+      writeJson(response, status, payload);
     }
   });
 }

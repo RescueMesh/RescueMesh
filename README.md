@@ -27,7 +27,8 @@ RescueMesh does not invent rewards. It attempts to create a positive-sum coopera
 - Raw transactions are never accepted over HTTP.
 - Sealed transactions are encrypted locally with AES-256-GCM.
 - Discovery advertisements never contain raw transactions, txids, outpoints, addresses, secrets, or credentials.
-- The API binds to loopback unless an explicit security override is present.
+- The API is restricted to loopback, rejects untrusted Host and cross-site browser requests, and exposes no CORS permissions.
+- The bilingual web interface loads no third-party scripts, fonts, trackers, or executable inline code.
 - Mainnet requires separate configuration, environment acknowledgement and implementation approval; this prototype contains no broadcaster.
 - Automated research may create proposals, never merge or deploy production code.
 
@@ -42,7 +43,7 @@ npm run doctor
 npm start
 ```
 
-Open `http://127.0.0.1:39393` for the local dashboard. The dashboard deliberately has no field for raw transactions.
+Open `http://127.0.0.1:39393` for the Spanish interface or `http://127.0.0.1:39393/en` for English. Both versions deliberately have no field for raw transactions and persist no browser data.
 
 To seal sensitive material, send it over standard input so it does not enter shell history:
 

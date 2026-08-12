@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RescueMesh coordinates non-custodial Bitcoin templates through verifiable commitments, sealed jobs, and fail-closed security.">
+  <meta name="theme-color" content="#080a0d">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="no-referrer">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RescueMesh — verifiable, non-custodial coordination">
+  <meta property="og:description" content="Open infrastructure for coordinating Bitcoin templates without publishing sensitive data or becoming a custodian.">
+  <meta property="og:image" content="/og-en.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" hreflang="es" href="/">
+  <link rel="alternate" hreflang="en" href="/en">
+  <title>RescueMesh — verifiable, non-custodial coordination</title>
+  <link rel="icon" href="/brand.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="RescueMesh, home">
+      <img src="/brand.png" width="42" height="42" alt="">
+      <span>
+        <strong>RescueMesh</strong>
+        <small>Protocol research</small>
+      </span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#protocol">Protocol</a>
+      <a href="#security">Security</a>
+      <a href="#simulator">Simulator</a>
+    </nav>
+    <div class="header-tools">
+      <div class="language-switcher" aria-label="Language">
+        <a href="/" lang="es" hreflang="es">ES</a>
+        <span aria-current="page">EN</span>
+      </div>
+      <div id="health-pill" class="health-pill pending" role="status" aria-live="polite">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="health-label">Checking local node</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="kicker"><span>01</span> Open infrastructure · Regtest</p>
+        <h1 id="hero-title">Coordinate the rescue.<br><em>Without giving up custody.</em></h1>
+        <p class="hero-lead">RescueMesh lets transaction owners and miners evaluate inclusion opportunities through public, verifiable commitments. Transactions, keys, and outpoints remain within the owner's private environment.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#simulator">Evaluate a template</a>
+          <a class="button secondary" href="#security">Review the safeguards</a>
+        </div>
+        <dl class="assurance-strip" aria-label="Core assurances">
+          <div><dt>0</dt><dd>funds in custody</dd></div>
+          <div><dt>0</dt><dd>raws over HTTP</dd></div>
+          <div><dt>ON</dt><dd>mainnet lock</dd></div>
+        </dl>
+      </div>
+
+      <div class="protocol-map" aria-label="RescueMesh information flow">
+        <div class="map-header">
+          <span>Verifiable flow</span>
+          <span class="map-live"><i aria-hidden="true"></i> Local boundary</span>
+        </div>
+        <div class="lane private-lane">
+          <p>PRIVATE ENVIRONMENT</p>
+          <div class="map-node node-owner">
+            <span class="node-index">A</span>
+            <div><strong>Owner</strong><small>Sealed transaction · local keys</small></div>
+          </div>
+          <div class="flow-line" aria-hidden="true"><span></span></div>
+          <div class="map-node node-sealed">
+            <span class="node-index">B</span>
+            <div><strong>Sealed job</strong><small>AES-256-GCM · authenticated metadata</small></div>
+          </div>
+        </div>
+        <div class="boundary"><span>Only an aggregate commitment crosses</span></div>
+        <div class="lane public-lane">
+          <p>PUBLIC SURFACE</p>
+          <div class="map-node node-commitment">
+            <span class="node-index">C</span>
+            <div><strong>Signed commitment</strong><small>Aggregate economics · expiry · PoW</small></div>
+          </div>
+          <div class="flow-line" aria-hidden="true"><span></span></div>
+          <div class="map-node node-miner">
+            <span class="node-index">D</span>
+            <div><strong>Miner selection</strong><small>Verifiable marginal cost · no extra charge</small></div>
+          </div>
+        </div>
+        <div class="map-footer">
+          <span>FAIL CLOSED</span>
+          <span>NO BROADCASTER</span>
+          <span>NO CUSTODY</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifest" aria-labelledby="manifest-title">
+      <div class="section-number">02 / MANDATE</div>
+      <div class="manifest-copy">
+        <h2 id="manifest-title">A coordination layer,<br>not another authority.</h2>
+        <p>The protocol exists to reduce information asymmetry: the owner retains control, the miner retains choice, and every important claim leaves verifiable evidence. RescueMesh neither promises confirmation nor attempts to replace consensus.</p>
+      </div>
+      <div class="manifest-rule" aria-hidden="true"></div>
+    </section>
+
+    <section class="status-grid" aria-label="Local service status">
+      <article>
+        <span class="metric-label">Active network</span>
+        <strong id="network">—</strong>
+        <small>The prototype accepts test environments only.</small>
+      </article>
+      <article>
+        <span class="metric-label">Mainnet</span>
+        <strong id="mainnet">—</strong>
+        <small>Locked in both configuration and execution.</small>
+      </article>
+      <article>
+        <span class="metric-label">Valid announcements</span>
+        <strong id="nodes">—</strong>
+        <small>Signed, short-lived, and bounded.</small>
+      </article>
+      <article>
+        <span class="metric-label">Public jobs</span>
+        <strong id="jobs">—</strong>
+        <small>Commitments and aggregate values only.</small>
+      </article>
+    </section>
+
+    <section class="protocol-section" id="protocol" aria-labelledby="protocol-title">
+      <div class="section-heading">
+        <div>
+          <p class="kicker"><span>03</span> Protocol</p>
+          <h2 id="protocol-title">Four steps. No point of custody.</h2>
+        </div>
+        <p>Every step reduces the information being shared while preserving an independent verification path.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-number">01</span>
+          <h3>Seal</h3>
+          <p>Sensitive data is encrypted locally. The private manifest never enters the public API.</p>
+          <code>owner → sealed store</code>
+        </li>
+        <li>
+          <span class="step-number">02</span>
+          <h3>Commit</h3>
+          <p>A salted root, aggregate economics, and an expiring policy are published.</p>
+          <code>bundle → commitment</code>
+        </li>
+        <li>
+          <span class="step-number">03</span>
+          <h3>Evaluate</h3>
+          <p>The miner compares verifiable value with the actual cost of displaced block space.</p>
+          <code>gain ≥ marginal cost</code>
+        </li>
+        <li>
+          <span class="step-number">04</span>
+          <h3>Prove</h3>
+          <p>Accepted work produces a signed receipt bound to the job and resistant to duplicates.</p>
+          <code>share → proof of help</code>
+        </li>
+      </ol>
+    </section>
+
+    <section class="simulator-section" id="simulator" aria-labelledby="sim-title">
+      <div class="simulator-intro">
+        <p class="kicker"><span>04</span> Economic simulator</p>
+        <h2 id="sim-title">Does this template make economic sense?</h2>
+        <p>The calculation uses integers and the block's marginal cost. It does not create, sign, or transmit transactions.</p>
+        <ul class="check-list">
+          <li>No fees added by RescueMesh</li>
+          <li>No wallet connection</li>
+          <li>No browser-persisted data</li>
+        </ul>
+      </div>
+      <div class="simulator-card">
+        <div class="card-topline">
+          <span>Local input</span>
+          <span>Base unit: satoshis</span>
+        </div>
+        <form id="simulator-form" novalidate>
+          <div class="field">
+            <label for="rescue-vsize">Virtual size <span>vB</span></label>
+            <input id="rescue-vsize" name="rescueVsize" type="text" inputmode="numeric" autocomplete="off" value="12318" maxlength="7" required>
+          </div>
+          <div class="field">
+            <label for="rescue-fee">Existing fee <span>sats</span></label>
+            <input id="rescue-fee" name="rescueFeeSats" type="text" inputmode="numeric" autocomplete="off" value="12318" maxlength="16" required>
+          </div>
+          <div class="field">
+            <label for="free-space">Free space <span>vB</span></label>
+            <input id="free-space" name="freeSpaceVbytes" type="text" inputmode="numeric" autocomplete="off" value="12318" maxlength="7" required>
+          </div>
+          <div class="field">
+            <label for="marginal-rate">Marginal rate <span>sat/vB</span></label>
+            <input id="marginal-rate" name="marginalRate" type="text" inputmode="decimal" autocomplete="off" value="1" maxlength="18" required>
+          </div>
+          <div class="field">
+            <label for="auxiliary-revenue">Auxiliary revenue <span>sats</span></label>
+            <input id="auxiliary-revenue" name="auxiliaryRevenueSats" type="text" inputmode="numeric" autocomplete="off" value="0" maxlength="16" required>
+          </div>
+          <div class="field">
+            <label for="infrastructure-savings">Infrastructure savings <span>sats</span></label>
+            <input id="infrastructure-savings" name="infrastructureSavingsSats" type="text" inputmode="numeric" autocomplete="off" value="0" maxlength="16" required>
+          </div>
+          <button class="submit-button" type="submit">
+            <span>Evaluate template</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </form>
+        <div id="result" class="result" role="status" aria-live="polite" hidden></div>
+        <p class="form-disclaimer">This simulator is informational. Final acceptance belongs to the miner and requires independent validation.</p>
+      </div>
+    </section>
+
+    <section class="security-section" id="security" aria-labelledby="security-title">
+      <div class="section-heading security-heading">
+        <div>
+          <p class="kicker"><span>05</span> Security model</p>
+          <h2 id="security-title">Trust is replaced by boundaries.</h2>
+        </div>
+        <p>Controls are explicit, testable, and closed by default. Known limitations are part of the product, not hidden in the fine print.</p>
+      </div>
+      <div class="security-layout">
+        <div class="control-list">
+          <article>
+            <span class="control-id">CTRL / 01</span>
+            <h3>Local interface</h3>
+            <p>Administration is bound to loopback. Writes require authorization and constant-time comparison.</p>
+          </article>
+          <article>
+            <span class="control-id">CTRL / 02</span>
+            <h3>Minimal surface</h3>
+            <p>There is no raw transaction endpoint. Size, frequency, methods, and fields are restricted.</p>
+          </article>
+          <article>
+            <span class="control-id">CTRL / 03</span>
+            <h3>Separated cryptography</h3>
+            <p>AES-256-GCM encryption, Ed25519 signatures, and distinct secrets reduce impact and prevent reuse.</p>
+          </article>
+          <article>
+            <span class="control-id">CTRL / 04</span>
+            <h3>Impossible activation</h3>
+            <p>Mainnet and broadcast are unimplemented. No configuration flag can enable them accidentally.</p>
+          </article>
+        </div>
+        <aside class="boundary-card" aria-labelledby="boundary-title">
+          <div class="boundary-card-header">
+            <span>Current boundary</span>
+            <span class="risk-badge">Declared risk</span>
+          </div>
+          <h3 id="boundary-title">Hidden-template validity</h3>
+          <p>A miner cannot fully validate transactions that remain sealed. Until zero-disclosure validity proofs exist, the miner must use a trusted local coordinator or reject the job.</p>
+          <dl>
+            <div><dt>Current mitigation</dt><dd>Local coordination and verifiable commitments</dd></div>
+            <div><dt>Research target</dt><dd>Proof-carrying templates</dd></div>
+            <div><dt>Status</dt><dd>Not suitable for mainnet</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="principles" aria-labelledby="principles-title">
+      <div>
+        <p class="kicker"><span>06</span> Operating principles</p>
+        <h2 id="principles-title">What RescueMesh must never request.</h2>
+      </div>
+      <div class="never-grid">
+        <span>Private keys</span>
+        <span>Seed phrases</span>
+        <span>RPC credentials</span>
+        <span>Fund custody</span>
+        <span>Blind trust</span>
+        <span>Rushed activation</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="/brand.png" width="36" height="36" alt="">
+      <div><strong>RescueMesh</strong><span>Open research · AGPL-3.0</span></div>
+    </div>
+    <p>Regtest first · no automatic broadcast · no RescueMesh fee</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

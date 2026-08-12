@@ -47,3 +47,17 @@ test('ranking is deterministic', () => {
   ]);
   assert.deepEqual(ranked.map((entry) => entry.index), [1, 0]);
 });
+
+test('unsafe aggregate economics are rejected instead of losing precision', () => {
+  assert.throws(() => evaluateRescueCandidate({
+    rescueVsize: 1,
+    rescueFeeSats: Number.MAX_SAFE_INTEGER,
+    freeSpaceVbytes: 1,
+    auxiliaryRevenueSats: 1,
+  }), /grossBenefitSats/);
+  assert.throws(() => evaluateRescueCandidate({
+    rescueVsize: 1,
+    rescueFeeSats: Number.MAX_SAFE_INTEGER,
+    freeSpaceVbytes: 1,
+  }), /feeRateMilliSatsPerVbyte/);
+});

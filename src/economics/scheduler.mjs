@@ -26,15 +26,20 @@ export function evaluateRescueCandidate(input) {
     1000n,
   ));
   const grossBenefitSats = rescueFeeSats + auxiliaryRevenueSats + infrastructureSavingsSats;
+  assertInteger(grossBenefitSats, { label: 'grossBenefitSats', minimum: 0 });
   const netGainSats = grossBenefitSats - opportunityCostSats;
   const accepted = netGainSats >= minimumNetGainSats;
+  const feeRateMilliSatsPerVbyte = Number(
+    (BigInt(rescueFeeSats) * 1000n) / BigInt(rescueVsize),
+  );
+  assertInteger(feeRateMilliSatsPerVbyte, { label: 'feeRateMilliSatsPerVbyte', minimum: 0 });
 
   return {
     accepted,
     reason: accepted ? 'NON_NEGATIVE_EXPECTED_VALUE' : 'INSUFFICIENT_MINER_VALUE',
     rescueVsize,
     rescueFeeSats,
-    feeRateMilliSatsPerVbyte: Math.floor((rescueFeeSats * 1000) / rescueVsize),
+    feeRateMilliSatsPerVbyte,
     freeSpaceVbytes: Math.min(freeSpaceVbytes, rescueVsize),
     displacedVbytes,
     opportunityCostSats,

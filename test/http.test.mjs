@@ -30,7 +30,7 @@ test('health endpoint exposes safety state but no credentials', async (t) => {
   assert.equal(body.mainnetLocked, true);
   assert.equal(body.rawTransactionHttp, false);
   assert.equal(JSON.stringify(body).includes('token'), false);
-  assert.equal(response.headers.get('content-security-policy').includes("default-src 'self'"), true);
+  assert.equal(response.headers.get('content-security-policy').includes("default-src 'none'"), true);
 });
 
 test('public API rejects sensitive fields before storing jobs', async (t) => {
@@ -42,7 +42,9 @@ test('public API rejects sensitive fields before storing jobs', async (t) => {
     body: JSON.stringify({ id: 'bad-job', rawTransaction: '00' }),
   });
   assert.equal(response.status, 400);
-  assert.match((await response.json()).message, /Sensitive field/);
+  const rejected = await response.json();
+  assert.equal(rejected.error, 'REQUEST_REJECTED');
+  assert.equal(JSON.stringify(rejected).includes('rawTransaction'), false);
 });
 
 test('job writes require authorization and store only public aggregates', async (t) => {

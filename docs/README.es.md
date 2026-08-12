@@ -7,7 +7,7 @@ No roba comisiones del premio, no custodia bitcoins y no obliga a ningún minero
 ## Qué funciona en la versión 0.1
 
 - cifrado local de transacciones con AES-256-GCM;
-- API y panel local sin entrada de raws;
+- API e interfaz bilingüe local sin entrada de raws, rastreadores ni recursos de terceros;
 - simulador de coste marginal con aritmética entera;
 - paquetes sellados con compromisos verificables;
 - anuncios firmados, temporales y con prueba de trabajo anti-spam;
@@ -32,6 +32,6 @@ Esto no es una limitación accidental. Es la frontera de seguridad hasta complet
 2. Ejecutar `npm run init` para crear secretos locales ignorados por Git.
 3. Ejecutar `npm run doctor`.
 4. Ejecutar `npm start`.
-5. Abrir `http://127.0.0.1:39393`.
+5. Abrir `http://127.0.0.1:39393` en español o `http://127.0.0.1:39393/en` en inglés.
 
 No copies una transacción real en el navegador, en GitHub, en una incidencia ni en un argumento de terminal.
